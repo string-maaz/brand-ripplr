@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,10 +29,22 @@ SECRET_KEY = 'p5dx5_)+91$bflcv)z(sh#o(5y-vb61fioq&@v+4$g+(lknp*g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR, "templates"),
+# )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': os.path.join(BASE_DIR, "templates"),
+        'APP_DIRS': True,
+        'TEMPLATE_DEBUG' : True,
+       
+    },
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,7 +53,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
+    'blog',
+    'django_elasticsearch_dsl',
+    'rest_framework',
 ]
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,12 +101,12 @@ WSGI_APPLICATION = 'brandripplr.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgressql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'brandripplr',
         'USER':'gallery',
         'PASSWORD':'bng321',
         'HOST':'localhost',
-        'PORT':'5432'
+        'PORT':'5432',
     }
 }
 
@@ -104,7 +128,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

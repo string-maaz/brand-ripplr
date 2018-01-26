@@ -1,0 +1,39 @@
+
+{% block content %}
+    <h2>Search</h2>
+
+    <form method="get" action=".">
+        <table>
+            <input type="text" name="q">
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+ 
+            <h3>Results</h3>
+            {% if page %}
+            <table border="1">
+            <tr><th>ID</th><th>NAME</th><th>TYPE</th></tr>
+
+            {% for result in page %}
+
+                <tr>
+                    <td>{{ result.bk_id }}</td>
+                    <td>{{ result.bk_name }}</td>
+                    <td>{{ result.bk_type }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+            {%else%}
+            <p>No results found.</p>
+            {%endif%}
+
+    </form>
+
+
+    <h3>Please Click Here first to read and index the data(ONE TIME):<a href="{% url 'load_data' %}"> Read & Index</a></h3>
+{% endblock %}
