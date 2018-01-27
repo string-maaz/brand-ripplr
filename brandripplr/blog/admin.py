@@ -28,7 +28,7 @@ class PostAdmin(admin.ModelAdmin): #bulk_admin.BulkModelAdmin
 			is_locked = InstanceLock.objects.get(post_id=obj.id)
 		except:
 			is_locked = None
-		if not is_locked:
+		if is_locked:
 			lock.delete()
 		return super(PostAdmin, self).response_change(request, obj)
 
