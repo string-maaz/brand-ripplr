@@ -19,15 +19,16 @@ class PostAdmin(admin.ModelAdmin): #bulk_admin.BulkModelAdmin
 					lock = InstanceLock.objects.create(post_id=obj.id,user=request.user)
 
 			if  (lock and lock.user==request.user) or (not obj):
-				print " i am in unlocked status"
 				return PostAdminForm
 			else:
-				print " i am in locked status"
 				return PostAdminReadForm
 				self.fields['field'].widget.attrs['readonly'] = True
 	def response_change(self, request, obj, *args, **kwargs):
-		lock,is_created = InstanceLock.objects.get(post_id=obj.id)
-		if not is_created:
+		try:
+			is_locked = InstanceLock.objects.get(post_id=obj.id)
+		except:
+			is_locked = None
+		if not is_locked:
 			lock.delete()
 		return super(PostAdmin, self).response_change(request, obj)
 
