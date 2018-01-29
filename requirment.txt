@@ -2,6 +2,7 @@ Django==1.11.9
 django-haystack==2.6.1
 django-elasticsearch-dsl==0.4.4
 psycopg2==2.7.3.2
+djangorestframework==3.7.7
 
 
 
