@@ -27,9 +27,9 @@ sudo service elasticsearch start
 
 sudo apt-get install postgresql-9.5
 
-create database same name as in setting.py file
+create database same name as in settings.py file
 
-chnage the user and pasword for DB or create the user with samne name and password as in setting.py fie.
+chnage the user and pasword for DB or create the user with samne name and password as in settings.py fie.
 
 
 ### Installing
