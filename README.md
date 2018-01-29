@@ -16,10 +16,15 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 Ubuntu 16.04
+
 python 2.7
+
 sudo easy_install pip
+
 sudo apt-get update && sudo apt-get install elasticsearch
+
 sudo service elasticsearch start
+
 sudo apt-get install postgresql-9.5
 
 create database same name as in setting.py file
@@ -39,6 +44,7 @@ End with an example of getting some data out of the system or using it for a lit
 ## Running the tests
 
 how to run the automated tests for this system
+
 1- Run python manage.py migrate
 
 2- Create 2-3 users as supeuruser by following command:
